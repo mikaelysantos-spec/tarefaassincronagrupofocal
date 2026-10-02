@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Diagnóstico do Problema – Grupo Focal</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f7f8ef;--card:#fff;--ink:#1a2040;--mut:#5b6385;--line:#d9dcc9;--navy:#27386b;--or:#e05f2d;--gr:#2f8a3c;--ye:#f4a940;--sel:#eaefe0;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141831;--card:#1d2347;--ink:#eef0f8;--mut:#a4abcc;--line:#2f3862;--navy:#9db0ff;--or:#ff8a5c;--gr:#66c274;--sel:#262d57}}
+:root[data-theme="dark"]{--bg:#141831;--card:#1d2347;--ink:#eef0f8;--mut:#a4abcc;--line:#2f3862;--navy:#9db0ff;--or:#ff8a5c;--gr:#66c274;--sel:#262d57}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Sora',system-ui,sans-serif;line-height:1.55}
+header{padding:20px 20px 8px;max-width:1040px;margin:0 auto;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+h1{font-size:1.35rem;margin:0;font-weight:800;color:var(--navy)}
+header p{margin:2px 0 0;color:var(--mut);font-size:.85rem}
+.acts{display:flex;gap:8px;flex-wrap:wrap}
+button{font:inherit;cursor:pointer}
+.btn{border:1.5px solid var(--navy);background:transparent;color:var(--navy);padding:8px 14px;border-radius:999px;font-size:.85rem;font-weight:600}
+.btn.pri{background:var(--or);border-color:var(--or);color:#fff}
+.btn:focus-visible,.nav button:focus-visible,textarea:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--ye);outline-offset:2px}
+.bar{max-width:1040px;margin:8px auto 0;padding:0 20px}
+.track{height:6px;background:var(--line);border-radius:9px;overflow:hidden}
+.fill{height:100%;background:var(--gr);width:0;transition:width .3s}
+.bar small{color:var(--mut);font-size:.75rem}
+main{max-width:1040px;margin:16px auto 40px;padding:0 20px;display:grid;grid-template-columns:230px 1fr;gap:20px}
+.nav{display:flex;flex-direction:column;gap:6px}
+.nav button{text-align:left;border:1.5px solid transparent;background:transparent;color:var(--ink);padding:10px 12px;border-radius:12px;font-size:.85rem;display:flex;gap:8px;align-items:center}
+.nav button.on{background:var(--sel);border-color:var(--navy);font-weight:600}
+.dot{width:10px;height:10px;border-radius:50%;border:2px solid var(--mut);flex:none}
+.dot.ok{background:var(--gr);border-color:var(--gr)}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px}
+.panel h2{margin:0 0 4px;font-size:1.25rem;color:var(--navy)}
+.intro{color:var(--mut);font-size:.88rem;margin:0 0 18px}
+.quote{border-left:4px solid var(--ye);padding:6px 12px;margin:0 0 18px;font-size:.8rem;color:var(--mut);font-style:italic}
+label{display:block;font-weight:600;font-size:.9rem;margin:16px 0 2px}
+.hint{font-size:.78rem;color:var(--mut);margin:0 0 6px}
+textarea,input,select{width:100%;font:inherit;font-size:.92rem;color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:12px;padding:10px 12px}
+textarea{min-height:88px;resize:vertical}
+.pager{display:flex;justify-content:space-between;margin-top:22px}
+#pres{display:none;position:fixed;inset:0;background:#1a2040;color:#fff;z-index:9;padding:calc(28px + env(safe-area-inset-top,0px)) 28px calc(20px + env(safe-area-inset-bottom,0px));flex-direction:column}
+#pres.on{display:flex}
+#pres .top{display:flex;justify-content:space-between;color:#b9c0e3;font-size:.8rem}
+#pres .body{flex:1;overflow:auto;max-width:900px;width:100%;margin:0 auto;padding:16px 0}
+#pres h2{font-size:clamp(1.6rem,4vw,2.6rem);margin:0 0 20px;font-weight:800;color:var(--ye)}
+#pres h3{font-size:.95rem;margin:18px 0 4px;color:#b9c0e3;font-weight:600}
+#pres p{font-size:clamp(1rem,2.2vw,1.35rem);margin:0;white-space:pre-wrap}
+#pres .big{font-size:clamp(1.4rem,3.4vw,2.3rem);font-weight:600}
+#pres .btn{color:#fff;border-color:#fff}
+#pres .ctl{display:flex;justify-content:space-between;max-width:900px;width:100%;margin:0 auto}
+@media(max-width:760px){main{grid-template-columns:1fr}.nav{flex-direction:row;overflow-x:auto;padding-bottom:4px}.nav button{white-space:nowrap}.panel{padding:18px}}
+@media(prefers-reduced-motion:reduce){.fill{transition:none}}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>Diagnóstico do Problema</h1>
+    <p>Atividade assíncrona · Grupo Focal · Comunidade de Lideranças Públicas</p>
+  </div>
+  <div class="acts">
+    <button class="btn" id="theme">Tema</button>
+    <button class="btn" id="reset">Limpar tudo</button>
+    <button class="btn pri" id="go">Apresentar</button>
+  </div>
+</header>
+<div class="bar"><div class="track"><div class="fill" id="fill"></div></div><small id="pct"></small></div>
+<main>
+  <nav class="nav" id="nav" aria-label="Etapas"></nav>
+  <section class="panel" id="panel"></section>
+</main>
+<div id="pres" role="dialog" aria-label="Modo apresentação">
+  <div class="top"><span id="pcount"></span><button class="btn" id="pclose">Sair (Esc)</button></div>
+  <div class="body" id="pbody"></div>
+  <div class="ctl"><button class="btn" id="pprev">Anterior</button><button class="btn" id="pnext">Próximo</button></div>
+</div>
+<script>
+const S=[
+{t:"Quem é você e qual problema?",i:"Comece dizendo de onde você fala e qual problema público do seu território quer analisar.",f:[
+ {k:"nome",l:"Seu nome",type:"input"},
+ {k:"terr",l:"Cidade ou região",type:"input"},
+ {k:"prob",l:"Nome do problema em uma frase",h:"Descreva a situação, não a solução. Ex.: Alta evasão escolar no ensino médio.",type:"input"}]},
+{t:"O problema é público?",i:"Um problema público é a distância entre a realidade atual e a situação ideal possível (Secchi, 2012).",f:[
+ {k:"sq",l:"Status quo: como está hoje?",h:"Descreva a realidade atual com fatos e, se possível, números.",type:"area"},
+ {k:"ideal",l:"Situação ideal possível: onde deveríamos estar?",type:"area"},
+ {k:"tipo",l:"Como essa distância surgiu?",type:"sel",o:["Deterioração do status quo","Vislumbre de uma oportunidade","Mudança de percepção"]},
+ {k:"tipoj",l:"Por que você escolheu essa opção?",type:"area"},
+ {k:"teste",l:"Teste: é problema ou solução disfarçada?",h:"Toda frase “falta de X” costuma ser uma solução. Pergunte: essa falta resolve qual problema?",type:"sel",o:["É um problema público","Era uma solução disfarçada, reescrevi o problema"]},
+ {k:"solconc",l:"Que outras soluções poderiam enfrentar o mesmo problema?",type:"area"}]},
+{t:"Origem do problema",q:"“Analisar o contexto do problema significa analisar a sua origem, o seu histórico e o seu quadro atual.” (Secchi, 2016, p. 39)",f:[
+ {k:"o1",l:"Quando o problema começou a ser percebido?",type:"area"},
+ {k:"o2",l:"É um problema (escassez, excesso, risco) ou uma oportunidade de política pública?",type:"area"},
+ {k:"o3",l:"Quais acontecimentos deram ênfase ao problema?",type:"area"}]},
+{t:"Análise política",q:"“A análise política trata da descrição dos atores envolvidos com o problema público, suas relações com os problemas, suas perspectivas, seus interesses e seu senso de urgência.” (Secchi, 2016, p. 41)",f:[
+ {k:"p1",l:"Quem levantou o problema e fez força para que ganhasse relevância?",type:"area"},
+ {k:"p2",l:"Quais interesses contrastantes motivam os atores?",type:"area"},
+ {k:"p3",l:"O que os atores ganham ou perdem ao manter ou alterar o status quo?",type:"area"}]},
+{t:"Análise econômica",q:"“A análise econômica do problema refere-se aos custos diretos e indiretos que podem ser assumidos pelo governo ou distribuídos pela sociedade ou grupos.” (Secchi, 2016, p. 43)",f:[
+ {k:"e1",l:"Quais são os custos do problema para o governo?",type:"area"},
+ {k:"e2",l:"Quais são os custos do problema para a sociedade?",type:"area"},
+ {k:"e3",l:"Como os custos estão distribuídos entre os atores?",type:"area"}]},
+{t:"Análise sociocultural",q:"“A análise sociocultural trata de verificação das instituições informais, ou seja, os hábitos, costumes, estilos e barreiras culturais que fazem com que o problema se acentue.” (Secchi, 2016, p. 43)",f:[
+ {k:"s1",l:"Qual é o comportamento das pessoas diante do problema?",type:"area"},
+ {k:"s2",l:"Que estratégias os atores afetados usam para driblar o problema?",type:"area"},
+ {k:"s3",l:"Que fenômeno social envolve o problema?",type:"area"},
+ {k:"s4",l:"Que barreiras culturais, hábitos e costumes influenciam o comportamento dos atores?",type:"area"}]},
+{t:"Amplitude, intensidade e tendência (opcional)",i:"Se você tiver dados à mão, complete o diagnóstico. Se não tiver, registre o que precisaria descobrir.",f:[
+ {k:"a1",l:"Amplitude: quantas e quais pessoas são ou serão atingidas?",type:"area"},
+ {k:"a2",l:"Intensidade: quão grave é o problema, em termos absolutos e relativos?",type:"area"},
+ {k:"a3",l:"Tendência: como o problema evoluiu e para onde caminha?",type:"area"}]},
+{t:"Síntese para o próximo encontro",i:"Prepare seu pitch reverso: o que o grupo precisa saber para priorizar seu problema?",f:[
+ {k:"y1",l:"Definição final do problema público",h:"Uma ou duas frases, sem citar a solução.",type:"area"},
+ {k:"y2",l:"Três aprendizados do diagnóstico",type:"area"},
+ {k:"y3",l:"Dúvida ou ajuda que você quer trazer ao grupo",type:"area"}]}
+];
+const KEY="gf-diagnostico-v1";let D={},cur=0,pi=0;
+try{D=JSON.parse(localStorage.getItem(KEY)||"{}")}catch(e){D={}}
+const $=id=>document.getElementById(id);
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(D))}catch(e){}};
+const has=s=>s.f.some(x=>(D[x.k]||"").trim());
+function prog(){const all=S.flatMap(s=>s.f),n=all.filter(x=>(D[x.k]||"").trim()).length;
+ $("fill").style.width=(100*n/all.length)+"%";$("pct").textContent=n+" de "+all.length+" campos preenchidos · salvo neste navegador";}
+function nav(){$("nav").innerHTML="";S.forEach((s,i)=>{const b=document.createElement("button");b.className=i==cur?"on":"";
+ b.innerHTML='<span class="dot'+(has(s)?' ok':'')+'"></span>'+s.t;b.onclick=()=>{cur=i;draw()};$("nav").appendChild(b)});}
+function draw(){const s=S[cur],p=$("panel");p.innerHTML="";
+ const h=document.createElement("h2");h.textContent=s.t;p.appendChild(h);
+ if(s.i){const e=document.createElement("p");e.className="intro";e.textContent=s.i;p.appendChild(e)}
+ if(s.q){const e=document.createElement("blockquote");e.className="quote";e.textContent=s.q;p.appendChild(e)}
+ s.f.forEach(x=>{const l=document.createElement("label");l.textContent=x.l;l.htmlFor="f_"+x.k;p.appendChild(l);
+  if(x.h){const e=document.createElement("p");e.className="hint";e.textContent=x.h;p.appendChild(e)}
+  let c;if(x.type=="sel"){c=document.createElement("select");c.innerHTML='<option value="">Escolha…</option>'+x.o.map(o=>'<option>'+o+'</option>').join("")}
+  else c=document.createElement(x.type=="input"?"input":"textarea");
+  c.id="f_"+x.k;c.value=D[x.k]||"";
+  c.oninput=c.onchange=()=>{D[x.k]=c.value;save();prog();nav()};p.appendChild(c)});
+ const g=document.createElement("div");g.className="pager";
+ g.innerHTML='<button class="btn" '+(cur?'':'disabled style="opacity:.4"')+' id="bp">Voltar</button><button class="btn pri" id="bn">'+(cur<S.length-1?'Próxima etapa':'Apresentar')+'</button>';
+ p.appendChild(g);$("bp").onclick=()=>{if(cur){cur--;draw()}};
+ $("bn").onclick=()=>{if(cur<S.length-1){cur++;draw();scrollTo(0,0)}else present()};
+ nav();prog();}
+function slide(){const n=S.length+1;$("pcount").textContent=(pi+1)+" / "+n;const b=$("pbody");b.innerHTML="";
+ const add=(tag,tx,cl)=>{const e=document.createElement(tag);e.textContent=tx;if(cl)e.className=cl;b.appendChild(e)};
+ if(pi==0){add("h2",D.prob||"Problema não definido");add("p",[D.nome,D.terr].filter(Boolean).join(" · ")||"Preencha nome e território","big")}
+ else{const s=S[pi-1];add("h2",s.t);let any=false;
+  s.f.forEach(x=>{const v=(D[x.k]||"").trim();if(v){any=true;add("h3",x.l);add("p",v)}});
+  if(!any)add("p","Nada preenchido nesta etapa.")}
+ $("pprev").disabled=pi==0;$("pnext").disabled=pi==n-1;}
+function present(){pi=0;$("pres").classList.add("on");slide()}
+$("go").onclick=present;$("pclose").onclick=()=>$("pres").classList.remove("on");
+$("pprev").onclick=()=>{if(pi>0){pi--;slide()}};$("pnext").onclick=()=>{if(pi<S.length){pi++;slide()}};
+document.addEventListener("keydown",e=>{if(!$("pres").classList.contains("on"))return;
+ if(e.key=="Escape")$("pclose").click();if(e.key=="ArrowRight")$("pnext").click();if(e.key=="ArrowLeft")$("pprev").click()});
+$("reset").onclick=()=>{if(confirm("Apagar tudo o que você preencheu?")){D={};save();draw()}};
+$("theme").onclick=()=>{const r=document.documentElement,d=r.dataset.theme?r.dataset.theme=="dark":matchMedia("(prefers-color-scheme:dark)").matches;r.dataset.theme=d?"light":"dark"};
+draw();
+</script>
+</body>
+</html>
